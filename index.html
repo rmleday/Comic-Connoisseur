@@ -1,0 +1,1800 @@
+
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comic Connoisseur | Comics | Collectibles | Media | News</title>
+    <!-- Google Fonts: Playfair Display for high-end serif headlines & Inter for clean sans body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #FAF9F5;
+            --bg-secondary: #F4F2EC;
+            --bg-card: #FFFFFF;
+            --text-primary: #111111;
+            --text-secondary: #555555;
+            --text-muted: #777777;
+            --border-color: #D1CDC2;
+            --accent-color: #8B0000; /* Deep Crimson */
+            --accent-hover: #660000;
+            --nav-bg: rgba(250, 249, 245, 0.95);
+            --ticker-bg: #111111;
+            --ticker-text: #FFFFFF;
+            --transition-speed: 0.3s;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #121212;
+            --bg-secondary: #1E1E1E;
+            --bg-card: #181818;
+            --text-primary: #F3F3F3;
+            --text-secondary: #AAAAAA;
+            --text-muted: #888888;
+            --border-color: #333333;
+            --accent-color: #D32F2F;
+            --accent-hover: #EF5350;
+            --nav-bg: rgba(18, 18, 18, 0.95);
+            --ticker-bg: #000000;
+            --ticker-text: #E0E0E0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .utility-bar {
+            background-color: var(--ticker-bg);
+            color: var(--ticker-text);
+            font-size: 0.75rem;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .utility-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .live-badge {
+            background-color: var(--accent-color);
+            color: #FFFFFF;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.15rem 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 2px;
+        }
+
+        .utility-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .utility-links button {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            font-size: inherit;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: opacity 0.2s;
+        }
+
+        .utility-links button:hover {
+            opacity: 0.8;
+        }
+
+        header.masthead {
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .masthead-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .masthead-container {
+                grid-template-columns: 1fr 2fr 1fr;
+                text-align: left;
+            }
+        }
+
+        .masthead-edition {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .masthead-edition {
+                display: block;
+            }
+        }
+
+        .edition-value {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-style: italic;
+        }
+
+        .masthead-brand {
+            text-align: center;
+        }
+
+        .masthead-brand h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            line-height: 1.1;
+        }
+
+        @media (min-width: 768px) {
+            .masthead-brand h1 {
+                font-size: 4.5rem;
+            }
+        }
+
+        .masthead-tagline {
+            font-family: 'Newsreader', serif;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .masthead-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        @media (min-width: 768px) {
+            .masthead-actions {
+                justify-content: flex-end;
+            }
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        .btn-solid {
+            background-color: var(--text-primary);
+            border: 1px solid var(--text-primary);
+            color: var(--bg-primary);
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 2px;
+        }
+
+        .btn-solid:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #FFFFFF;
+        }
+
+        .bookmark-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background-color: var(--accent-color);
+            color: white;
+            font-size: 0.6rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .bookmark-badge.hidden {
+            display: none;
+        }
+
+        nav.sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            padding: 0.75rem 0;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            transition: color 0.2s;
+            padding-bottom: 2px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        main.main-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        @media (min-width: 1024px) {
+            .hero-section {
+                grid-template-columns: 8fr 4fr;
+            }
+        }
+
+        .hero-main {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hero-image-wrap {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .cover-tag {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 10;
+            background-color: var(--ticker-bg);
+            color: var(--ticker-text);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.3rem 0.6rem;
+        }
+
+        .bookmark-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+            background: var(--bg-card);
+            border: none;
+            color: var(--text-primary);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .bookmark-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .hero-image-wrap img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (min-width: 768px) {
+            .hero-image-wrap img {
+                height: 450px;
+            }
+        }
+
+        .hero-main:hover .hero-image-wrap img {
+            transform: scale(1.03);
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .meta-category {
+            color: var(--accent-color);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            transition: color 0.2s;
+        }
+
+        @media (min-width: 768px) {
+            .hero-title {
+                font-size: 2.75rem;
+            }
+        }
+
+        .hero-title a:hover {
+            color: var(--accent-color);
+        }
+
+        .hero-excerpt {
+            font-family: 'Newsreader', serif;
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .hero-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .read-more-link {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .read-more-link:hover {
+            color: var(--accent-color);
+            transform: translateX(4px);
+        }
+
+        .hero-sub {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-sub {
+                border-top: none;
+                padding-top: 0;
+                border-left: 1px solid var(--border-color);
+                padding-left: 2rem;
+            }
+        }
+
+        .sub-story-item {
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sub-story-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .sub-story-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.25rem;
+        }
+
+        .sub-story-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.25;
+        }
+
+        .sub-story-title a:hover {
+            color: var(--accent-color);
+        }
+
+        .sub-story-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub-story-author {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .editors-note-box {
+            background-color: var(--bg-secondary);
+            padding: 1.25rem;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            margin-top: 2rem;
+        }
+
+        .editors-note-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: var(--accent-color);
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .editors-note-text {
+            font-family: 'Newsreader', serif;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .content-grid-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        @media (min-width: 1024px) {
+            .content-grid-section {
+                grid-template-columns: 8fr 4fr;
+            }
+        }
+
+        .dispatches-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--text-primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .dispatches-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background-color: var(--bg-secondary);
+            border: none;
+            color: var(--text-secondary);
+            padding: 0.35rem 0.75rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .article-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 2px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .card-img-wrap {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border-radius: 2px;
+        }
+
+        .card-img-wrap img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .article-card:hover .card-img-wrap img {
+            transform: scale(1.04);
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-top: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title a:hover {
+            color: var(--accent-color);
+        }
+
+        .card-excerpt {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.75rem;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .essay-banner {
+            background-color: var(--ticker-bg);
+            color: var(--ticker-text);
+            padding: 2.5rem;
+            border-radius: 2px;
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .essay-quote-bg {
+            position: absolute;
+            right: -10px;
+            bottom: -30px;
+            font-size: 10rem;
+            font-family: 'Playfair Display', serif;
+            opacity: 0.1;
+            pointer-events: none;
+            line-height: 1;
+        }
+
+        .essay-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        .essay-excerpt {
+            font-family: 'Newsreader', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #CCCCCC;
+            margin-bottom: 1.5rem;
+        }
+
+        .essay-author-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #333333;
+            padding-top: 1rem;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .author-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .author-title {
+            font-size: 0.7rem;
+            color: #999999;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .sidebar-box {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 2px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .sidebar-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .editors-picks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .pick-item {
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .pick-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .pick-tag {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-color);
+        }
+
+        .pick-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 0.25rem 0;
+            line-height: 1.25;
+        }
+
+        .pick-title a:hover {
+            color: var(--accent-color);
+        }
+
+        .pick-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .pick-readtime {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+            display: block;
+        }
+
+        /* Newsletter Sidebar */
+        .newsletter-sidebar {
+            background-color: var(--ticker-bg);
+            color: var(--ticker-text);
+            padding: 1.5rem;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-sidebar h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0.25rem 0 0.75rem 0;
+            line-height: 1.2;
+        }
+
+        .newsletter-sidebar p {
+            font-size: 0.75rem;
+            color: #CCCCCC;
+            margin-bottom: 1.25rem;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            background-color: #222222;
+            border: 1px solid #444444;
+            color: #FFFFFF;
+            padding: 0.75rem;
+            font-size: 0.75rem;
+            border-radius: 2px;
+            margin-bottom: 0.75rem;
+            outline: none;
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .newsletter-btn {
+            width: 100%;
+            background-color: var(--accent-color);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background-color 0.2s;
+        }
+
+        .newsletter-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .success-msg {
+            color: #4ADE80;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            text-align: center;
+            display: none;
+        }
+
+        /* Trending Tags Cloud */
+        .tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag-pill {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 0.7rem;
+            padding: 0.35rem 0.65rem;
+            border-radius: 2px;
+            transition: all 0.2s;
+        }
+
+        .tag-pill:hover {
+            background-color: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        footer.main-footer {
+            background-color: var(--ticker-bg);
+            color: #999999;
+            padding: 4rem 1rem 2rem 1rem;
+            margin-top: 5rem;
+            border-top: 1px solid #333333;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .footer-brand h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+        }
+
+        .footer-brand p {
+            font-size: 0.75rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 1rem;
+            color: #FFFFFF;
+            font-size: 1rem;
+        }
+
+        .footer-socials a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-col h4 {
+            color: #FFFFFF;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .footer-col ul a:hover {
+            color: #FFFFFF;
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #222222;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #666666;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+            width: 100%;
+            max-width: 600px;
+            padding: 2rem;
+            border-radius: 2px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        .search-modal-input {
+            width: 100%;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.85rem 1rem;
+            font-size: 0.9rem;
+            border-radius: 2px;
+            outline: none;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-modal-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .search-results-list {
+            max-height: 300px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .search-result-item {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            background-color: var(--bg-secondary);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-result-item:hover {
+            background-color: var(--bg-card);
+            border-color: var(--accent-color);
+        }
+
+        /* Drawer for Bookmarks */
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(2px);
+            z-index: 100;
+            display: flex;
+            justify-content: flex-end;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .drawer-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .drawer-panel {
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: -10px 0 25px rgba(0,0,0,0.3);
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .drawer-overlay.active .drawer-panel {
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .drawer-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .drawer-body {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .drawer-item {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 0.85rem;
+            border-radius: 2px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .drawer-item-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding-right: 0.5rem;
+        }
+
+        .drawer-item-delete {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .drawer-item-delete:hover {
+            color: var(--accent-color);
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--ticker-bg);
+            color: #FFFFFF;
+            padding: 0.85rem 1.25rem;
+            border-radius: 2px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+            font-size: 0.75rem;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="utility-bar">
+        <div class="utility-container">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <span id="current-date" style="color: #AAAAAA; font-weight: 500;">Wednesday, October 7, 2026</span>
+                <span style="color: #444444; display: none;" id="ticker-divider">|</span>
+                <div style="display: none; align-items: center; gap: 0.5rem; overflow: hidden;" id="ticker-wrap">
+                    <span class="live-badge">Live</span>
+                    <span style="color: #DDDDDD; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 450px;" id="ticker-text">Global Markets Reach Record Highs Following Breakthrough Clean Energy Summit</span>
+                </div>
+            </div>
+            <div class="utility-links">
+                <button onclick="openSearchModal()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                <span>/</span>
+                <button onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke" id="theme-icon"></i> <span id="theme-label">Dark Mode</span></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="masthead">
+        <div class="masthead-container">
+            <div class="masthead-edition">
+                <span>Edition</span>
+                <div class="edition-value">Global / US</div>
+            </div>
+            <div class="masthead-brand">
+                <a href="#">
+                    <h1>Comic Connoisseur</h1>
+                </a>
+                <p class="masthead-tagline">Comics | Collectibles | Media | News</p>
+            </div>
+            <div class="masthead-actions">
+                <button class="btn-outline" onclick="toggleBookmarksDrawer()">
+                    <i class="fa-regular fa-bookmark"></i>
+                    <span>Saved</span>
+                    <span id="bookmark-badge" class="bookmark-badge hidden">0</span>
+                </button>
+                <a href="#newsletter" class="btn-solid">Subscribe</a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="sticky-nav">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="#" class="active" onclick="filterCategory(event, 'all')">Comics</a></li>
+                <li><a href="#" onclick="filterCategory(event, 'politics')">Collectibles</a></li>
+                <li><a href="#" onclick="filterCategory(event, 'business')">Games</a></li>
+                <li><a href="#" onclick="filterCategory(event, 'opinion')">Television</a></li>
+                <li><a href="#" onclick="filterCategory(event, 'culture')">Movies</a></li>
+                <li><a href="#" onclick="filterCategory(event, 'climate')">News</a></li>
+                <li><a href="#" onclick="filterCategory(event, 'science')">Miscellaneous</a></li>
+                <li><a href="#" onclick="filterCategory(event, 'style')">Style</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="hero-section">
+            <!-- Main Hero Story -->
+            <div class="hero-main">
+                <div>
+                    <div class="hero-image-wrap">
+                        <span class="cover-tag">Cover Story</span>
+                        <button class="bookmark-btn" onclick="toggleBookmark(this, 'The Architecture of Tomorrow: Reimagining Megacities for a Post-Carbon Era')" title="Save article">
+                            <i class="fa-regular fa-bookmark"></i>
+                        </button>
+                        <img src="images\Transformers38A_Cover_RGB (1).jpg" 
+                             onerror="this.src='https://placehold.co/1200x800/111/fff?text=Architecture'"
+                             alt="Cover Story">
+                    </div>
+                    <div class="article-meta">
+                        <span class="meta-category">Comics</span>
+                        <span>•</span>
+                        <span>4 min read</span>
+                        <span>•</span>
+                        <span>By Royce LeDay</span>
+                    </div>
+                    <h2 class="hero-title">
+                        <a href="transformers38.html">Megatron Emerges! Transformers #38 Reveals Megatron's New Form</a>
+                    </h2>
+                    <p class="hero-excerpt">
+                        The world of Transformers has changed over the last year as Robert Kirkman and the industry's top artists introduced us to Elita Prime, Arcee Magnus, a new Superion and more. What's next?
+                    </p>
+                </div>
+                <div class="hero-footer">
+                    <span>Updated 2 hours ago</span>
+                    <a href="transformers38.html" class="read-more-link">Full Coverage <i class="fa-solid fa-arrow-right" style="font-size: 0.65rem;"></i></a>
+                </div>
+            </div>
+
+            <!-- Secondary Hero Sub-Column -->
+            <div class="hero-sub">
+                <div>
+                    <div class="sub-story-item">
+                        <div class="sub-story-header">
+                            <span class="pick-tag">Comics</span>
+                            <button onclick="toggleBookmark(this, 'Diplomacy in the Quantum Age')" style="background:none; border:none; cursor:pointer; color:var(--text-muted);"><i class="fa-regular fa-bookmark"></i></button>
+                        </div>
+                        <h3 class="sub-story-title"><a href="#">David Finch Cooks Up Some Magic with Terminal #7 from Skybound & Image Comics</a></h3>
+                        <p class="sub-story-desc">A New Activator & The Mapmakers Enter the Fray in an All-New Story Arc This January</p>
+                        <span class="sub-story-author">By David Finch</span>
+                    </div>
+
+                    <div class="sub-story-item">
+                        <div class="sub-story-header">
+                            <span class="pick-tag">Comics</span>
+                            <button onclick="toggleBookmark(this, 'The Silent Boom of Artisan Economies')" style="background:none; border:none; cursor:pointer; color:var(--text-muted);"><i class="fa-regular fa-bookmark"></i></button>
+                        </div>
+                        <h3 class="sub-story-title"><a href="#">First Look: Blood, Thunder & Deuce Make a Run for It in Blood & Thunder #19 from Skybound & Image Comics</a></h3>
+                        <p class="sub-story-desc">The Intergalactic Adventure Hits the Ground Running as a New Arc Begins November 11!</p>
+                        <span class="sub-story-author">By Benito Cereno</span>
+                    </div>
+
+                    <div class="sub-story-item">
+                        <div class="sub-story-header">
+                            <span class="pick-tag">Television</span>
+                            <button onclick="toggleBookmark(this, 'The Death of Attention')" style="background:none; border:none; cursor:pointer; color:var(--text-muted);"><i class="fa-regular fa-bookmark"></i></button>
+                        </div>
+                        <h3 class="sub-story-title"><a href="#">Marvel Television Announces New ‘Zodiac’ Series at NYCC 2026</a></h3>
+                        <p class="sub-story-desc">The new global spy thriller will debut on Disney+ in 2028.</p>
+                        <span class="sub-story-author">By Marvel</span>
+                    </div>
+                </div>
+
+                <div class="editors-note-box">
+                    <span class="editors-note-label">Editor's Note</span>
+                    <p class="editors-note-text">"We stand at the precipice of a renaissance in human creativity. The stories this week explore how we anchor ourselves."</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="content-grid-section">
+            <!-- Left Column: Dispatches & Article Grid -->
+            <div>
+                <div class="dispatches-header">
+                    <h3>Latest Updates</h3>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterArticles('all', this)">All</button>
+                        <button class="filter-btn" onclick="filterArticles('tech', this)">Comics</button>
+                        <button class="filter-btn" onclick="filterArticles('culture', this)">Collectibles</button>
+                    </div>
+                </div>
+
+                <div class="articles-grid" id="articles-grid">
+                    <!-- Article Card 1 -->
+                    <article class="article-card" data-category="tech">
+                        <div>
+                            <div class="card-img-wrap">
+                                <button class="bookmark-btn" style="width:30px; height:30px; top:8px; right:8px;" onclick="toggleBookmark(this, 'Synthetic Biology and the New Frontier')" title="Save"><i class="fa-regular fa-bookmark" style="font-size:0.7rem;"></i></button>
+                                <img src="images\Transformers_ Bumblebee - Lost Planet\TransformersBumblebeeLostPlanet01A_Cover_Emmons.jpg" 
+                                     onerror="this.src='https://placehold.co/600x400/222/fff?text=Tech'"
+                                     alt="Tech">
+                            </div>
+                            <span class="pick-tag">Comics</span>
+                            <h4 class="card-title"><a href="#">Transformers! G.I. Joe! Turok! Skybound Visions Is HERE!</a></h4>
+                            <p class="card-excerpt">Skybound, Image, Hasbro & Universal Announce New Line of Comics Featuring The Biggest Icons & Biggest Creators!</p>
+                        </div>
+                        <div class="card-footer">
+                            <span>Oct 6, 2026</span>
+                            <span>3 min read</span>
+                        </div>
+                    </article>
+
+                    <!-- Article Card 2 -->
+                    <article class="article-card" data-category="culture">
+                        <div>
+                            <div class="card-img-wrap">
+                                <button class="bookmark-btn" style="width:30px; height:30px; top:8px; right:8px;" onclick="toggleBookmark(this, 'The Vinyl Renaissance')" title="Save"><i class="fa-regular fa-bookmark" style="font-size:0.7rem;"></i></button>
+                                <img src="images\MASK_08A_Cover_RGB (3).jpg" 
+                                     onerror="this.src='https://placehold.co/600x400/222/fff?text=Culture'"
+                                     alt="Culture">
+                            </div>
+                            <span class="pick-tag">Comics</span>
+                            <h4 class="card-title"><a href="#">Fan-favorite G.I. Joe characters “Battle Force 2000” make their Energon Universe comics debut in M.A.S.K.</a></h4>
+                            <p class="card-excerpt">This includes an all-new, bionic version of Maverick...but how does this connect to M.A.S.K. and V.E.N.O.M.? </p>
+                        </div>
+                        <div class="card-footer">
+                            <span>Oct 5, 2026</span>
+                            <span>5 min read</span>
+                        </div>
+                    </article>
+
+                    <!-- Article Card 3 -->
+                    <article class="article-card" data-category="tech">
+                        <div>
+                            <div class="card-img-wrap">
+                                <button class="bookmark-btn" style="width:30px; height:30px; top:8px; right:8px;" onclick="toggleBookmark(this, 'Autonomous Ocean Fleets')" title="Save"><i class="fa-regular fa-bookmark" style="font-size:0.7rem;"></i></button>
+                                <img src="images\G.I. Joe_ The Island of Dr. Mindbender\Visions_GIJoeTIODM_01_Cover_C1A_RGB.jpg" 
+                                     onerror="this.src='https://placehold.co/600x400/222/fff?text=Ocean'"
+                                     alt="Ocean">
+                            </div>
+                            <span class="pick-tag">Comics</span>
+                            <h4 class="card-title"><a href="#">G.I. Joe: The Island of Dr. Mindbender </a></h4>
+                            <p class="card-excerpt">The Island of Dr. Mindbender is a nightmare-fueled version of everything that I love about G.I. Joe–it’s a freight train of 80’s-inspired action and horror.</p>
+                        </div>
+                        <div class="card-footer">
+                            <span>Oct 4, 2026</span>
+                            <span>4 min read</span>
+                        </div>
+                    </article>
+
+                    <!-- Article Card 4 -->
+                    <article class="article-card" data-category="culture">
+                        <div>
+                            <div class="card-img-wrap">
+                                <button class="bookmark-btn" style="width:30px; height:30px; top:8px; right:8px;" onclick="toggleBookmark(this, 'The Architecture of Solitude')" title="Save"><i class="fa-regular fa-bookmark" style="font-size:0.7rem;"></i></button>
+                                <img src="images\BnT_19A_Cover_RGB (1).jpg" 
+                                     onerror="this.src='https://placehold.co/600x400/222/fff?text=Design'"
+                                     alt="Design">
+                            </div>
+                            <span class="pick-tag">Comics</span>
+                            <h4 class="card-title"><a href="#">First Look: Blood, Thunder & Deuce Make a Run for It in Blood & Thunder #19</a></h4>
+                            <p class="card-excerpt">The Intergalactic Adventure Hits the Ground Running as a New Arc Begins November 11!</p>
+                        </div>
+                        <div class="card-footer">
+                            <span>Oct 3, 2026</span>
+                            <span>6 min read</span>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Special Blog Banner -->
+                <div class="essay-banner">
+                    <span class="essay-quote-bg">“</span>
+                    <span class="pick-tag" style="background-color: var(--accent-color); color: #FFF; padding: 0.2rem 0.5rem;">Blog</span>
+                    <h3 class="essay-title">"The History of the Midnight Sons and Marvel's Horror Genre"</h3>
+                    <p class="essay-excerpt">Take a look at the evolution of horror storytelling in Marvel Comics.</p>
+                    <div class="essay-author-box">
+                        <div class="author-info">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" 
+                                 onerror="this.src='https://placehold.co/100x100/444/fff?text=Author'"
+                                 alt="Author">
+                            <div>
+                                <div class="author-name">Royce LeDay</div>
+                                <div class="author-title">Senior Contributing Essayist</div>
+                            </div>
+                        </div>
+                        <button onclick="toggleBookmark(this, 'The Loneliness of the Hyper-Connected Individual')" class="btn-outline" style="border-color:#444; color:#FFF;">
+                            <i class="fa-regular fa-bookmark"></i> Save Post
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Sidebar -->
+            <aside class="sidebar">
+                <!-- Editors Picks Box -->
+                <div class="sidebar-box">
+                    <div class="sidebar-header">
+                        <h3>Editor's Picks</h3>
+                        <i class="fa-solid fa-certificate" style="color: var(--accent-color);"></i>
+                    </div>
+                    <div class="editors-picks-list">
+                        <div class="pick-item">
+                            <span class="pick-tag">Comics</span>
+                            <h4 class="pick-title"><a href="#">The Dinobots Debut In Transformers #42</a></h4>
+                            <p class="pick-desc">The iconic Dinobots make their debut in the upcoming issue of Transformers!</p>
+                            <span class="pick-readtime">12 min read</span>
+                        </div>
+                        <div class="pick-item">
+                            <span class="pick-tag">Comics</span>
+                            <h4 class="pick-title"><a href="#">Baroness Joins Cobra?! Take A Look At The Upcoming Issue of G.I.Joe</a></h4>
+                            <p class="pick-desc">Is this a ruse or has this always been the plan?</p>
+                            <span class="pick-readtime">7 min read</span>
+                        </div>
+                        <div class="pick-item">
+                            <span class="pick-tag">Comics</span>
+                            <h4 class="pick-title"><a href="#">December's Void Rivals #37 kicks off the "Pit of Destruction" arc</a></h4>
+                            <p class="pick-desc">Darak, Solila, and Pythona journey back to Cobra-La on Earth...but new dangers await.</p>
+                            <span class="pick-readtime">5 min read</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Newsletter Subscription Box -->
+                <div class="newsletter-sidebar" id="newsletter">
+                    <span class="pick-tag" style="background-color: var(--accent-color); color: #FFF; padding: 0.2rem 0.5rem;">The Morning Dispatch</span>
+                    <h3>Collectible News Delivered Daily</p>
+                    <form onsubmit="handleNewsletterSubmit(event)">
+                        <input type="email" required placeholder="Enter your email address" class="newsletter-input">
+                        <button type="submit" class="newsletter-btn">Subscribe Free</button>
+                    </form>
+                    <div class="success-msg" id="newsletter-success">Successfully subscribed to briefing!</div>
+                </div>
+
+                <!-- Trending Topics Box -->
+                <div class="sidebar-box">
+                    <div class="sidebar-header">
+                        <h3>Trending Topics</h3>
+                    </div>
+                    <div class="tags-cloud">
+                        <a href="#" class="tag-pill">#EnergonUniverse</a>
+                        <a href="#" class="tag-pill">#Avengers:Doomsday</a>
+                        <a href="#" class="tag-pill">#Transformers</a>
+                        <a href="#" class="tag-pill">#Spawn</a>
+                        <a href="#" class="tag-pill">#Avengers#1</a>
+                        <a href="#" class="tag-pill">#G.I.Joe</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h2>Comic Connoisseur</h2>
+                <p>Committed to uncompromising comic book journalism, cultural critique, and global perspective since 2026.</p>
+                <div class="footer-socials">
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Newsrooms</h4>
+                <ul>
+                    <li><a href="#">Arizona</a></li>
+                    <li><a href="#">Houston</a></li>
+                    <li><a href="#">Nacogdoches</a></li>
+                    <li><a href="#">Austin</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Comic Connoisseur</a></li>
+                    <li><a href="#">Masthead & Editors</a></li>
+                    <li><a href="#">Careers & Fellowships</a></li>
+                    <li><a href="#">Press & Awards</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal & Privacy</h4>
+                <ul>
+                    <li><a href="#">Subscriber Agreement</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Code of Ethics</a></li>
+                    <li><a href="#">Ad Choices</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Comic Connoisseur Publishing Co. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Search Modal -->
+    <div class="modal-overlay" id="search-modal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeSearchModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 style="font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700;">Search Comic Connoisseur</h3>
+            <input type="text" id="search-input" class="search-modal-input" placeholder="Type keywords, authors, or topics..." oninput="handleSearch(this.value)">
+            <div class="search-results-list" id="search-results">
+                <div style="color:var(--text-muted); font-style:italic; font-size:0.8rem; text-align:center; padding:1rem;">Type above to search archives...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Saved Bookmarks Area -->
+    <div class="drawer-overlay" id="bookmarks-drawer">
+        <div class="drawer-panel">
+            <div>
+                <div class="drawer-header">
+                    <h3>Saved Articles (<span id="drawer-count">0</span>)</h3>
+                    <button class="modal-close" onclick="toggleBookmarksDrawer()" style="position:static;"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="drawer-body" id="drawer-list">
+                    <div style="color:var(--text-muted); font-size:0.8rem; font-style:italic;">No saved articles yet. Click the bookmark icon on any article to save it here.</div>
+                </div>
+            </div>
+            <div style="padding-top:1rem; border-top:1px solid var(--border-color);">
+                <button class="btn-outline" style="width:100%; justify-content:center;" onclick="clearBookmarks()">Clear All Saved</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check" style="color: #4ADE80;" id="toast-icon"></i>
+        <span id="toast-msg">Action completed successfully.</span>
+    </div>
+
+    <script>
+        // Set live current date
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', options);
+
+        // Bookmarks State Management
+        let bookmarks = JSON.parse(localStorage.getItem('chronicle_bookmarks')) || [];
+        updateBookmarkUI();
+
+        function toggleBookmark(btn, title) {
+            const icon = btn.querySelector('i');
+            const index = bookmarks.indexOf(title);
+
+            if (index > -1) {
+                bookmarks.splice(index, 1);
+                icon.classList.remove('fa-solid');
+                icon.classList.add('fa-regular');
+                icon.style.color = '';
+                showToast('Removed from saved articles', 'info');
+            } else {
+                bookmarks.push(title);
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid');
+                icon.style.color = 'var(--accent-color)';
+                showToast('Article saved to your reading list', 'success');
+            }
+            localStorage.setItem('chronicle_bookmarks', JSON.stringify(bookmarks));
+            updateBookmarkUI();
+        }
+
+        function updateBookmarkUI() {
+            const badge = document.getElementById('bookmark-badge');
+            const countEl = document.getElementById('drawer-count');
+            const listEl = document.getElementById('drawer-list');
+
+            if (bookmarks.length > 0) {
+                badge.textContent = bookmarks.length;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+            if(countEl) countEl.textContent = bookmarks.length;
+
+            if (listEl) {
+                if (bookmarks.length === 0) {
+                    listEl.innerHTML = `<div style="color:var(--text-muted); font-size:0.8rem; font-style:italic;">No saved articles yet. Click the bookmark icon on any article to save it here.</div>`;
+                } else {
+                    listEl.innerHTML = bookmarks.map((b, i) => `
+                        <div class="drawer-item">
+                            <span class="drawer-item-title">${b}</span>
+                            <button class="drawer-item-delete" onclick="removeBookmarkByIndex(${i})"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        function removeBookmarkByIndex(index) {
+            bookmarks.splice(index, 1);
+            localStorage.setItem('chronicle_bookmarks', JSON.stringify(bookmarks));
+            updateBookmarkUI();
+            showToast('Removed from saved articles', 'info');
+        }
+
+        function clearBookmarks() {
+            bookmarks = [];
+            localStorage.setItem('chronicle_bookmarks', JSON.stringify(bookmarks));
+            updateBookmarkUI();
+            showToast('All saved articles cleared', 'info');
+        }
+
+        function toggleBookmarksDrawer() {
+            const drawer = document.getElementById('bookmarks-drawer');
+            drawer.classList.toggle('active');
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('chronicle_theme', newTheme);
+            
+            const icon = document.getElementById('theme-icon');
+            const label = document.getElementById('theme-label');
+            if (newTheme === 'dark') {
+                label.textContent = 'Light Mode';
+            } else {
+                label.textContent = 'Dark Mode';
+            }
+        }
+
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('chronicle_theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'dark') {
+            document.getElementById('theme-label').textContent = 'Light Mode';
+        }
+
+        // Category Filter for Grid
+        function filterArticles(category, btn) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+
+            const cards = document.querySelectorAll('.article-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function filterCategory(e, cat) {
+            e.preventDefault();
+            const links = document.querySelectorAll('.nav-links a');
+            links.forEach(l => l.classList.remove('active'));
+            e.target.classList.add('active');
+            if(cat === 'tech' || cat === 'culture') {
+                filterArticles(cat);
+            } else {
+                filterArticles('all');
+            }
+        }
+
+        // Search Modal
+        function openSearchModal() {
+            document.getElementById('search-modal').classList.add('active');
+            document.getElementById('search-input').focus();
+        }
+
+        function closeSearchModal() {
+            document.getElementById('search-modal').classList.remove('active');
+        }
+
+        function handleSearch(query) {
+            const resultsBox = document.getElementById('search-results');
+            if (!query.trim()) {
+                resultsBox.innerHTML = `<div style="color:var(--text-muted); font-style:italic; font-size:0.8rem; text-align:center; padding:1rem;">Type above to search archives...</div>`;
+                return;
+            }
+
+            const mockArticles = [
+                { title: "The Architecture of Tomorrow: Reimagining Megacities", category: "Urban Design" },
+                { title: "Diplomacy in the Quantum Age", category: "Geopolitics" },
+                { title: "The Silent Boom of Artisan Economies", category: "Markets" },
+                { title: "Synthetic Biology and Engineered Organic Materials", category: "Synthetic Biology" },
+                { title: "The Vinyl Renaissance in the Era of Cloud Streaming", category: "Arts & Culture" },
+                { title: "Autonomous Ocean Fleets Map Deep Sea Ecosystems", category: "Environment" }
+            ];
+
+            const filtered = mockArticles.filter(a => a.title.toLowerCase().includes(query.toLowerCase()) || a.category.toLowerCase().includes(query.toLowerCase()));
+
+            if (filtered.length === 0) {
+                resultsBox.innerHTML = `<div style="color:var(--text-muted); font-style:italic; font-size:0.8rem; text-align:center; padding:1rem;">No matching dispatches found for "${query}"</div>`;
+            } else {
+                resultsBox.innerHTML = filtered.map(f => `
+                    <div class="search-result-item">
+                        <span style="font-size:0.65rem; font-weight:700; text-transform:uppercase; color:var(--accent-color);">${f.category}</span>
+                        <div style="font-family:'Playfair Display',serif; font-weight:700; font-size:0.9rem; margin-top:0.2rem;">${f.title}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Newsletter Submit
+        function handleNewsletterSubmit(e) {
+            e.preventDefault();
+            document.getElementById('newsletter-success').style.display = 'block';
+            e.target.reset();
+            showToast('Successfully subscribed to briefing!', 'success');
+        }
+
+        // Toast Helper
+        function showToast(msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-msg');
+            const iconEl = document.getElementById('toast-icon');
+
+            msgEl.textContent = msg;
+            if (type === 'success') {
+                iconEl.className = 'fa-solid fa-circle-check';
+                iconEl.style.color = '#4ADE80';
+            } else {
+                iconEl.className = 'fa-solid fa-circle-info';
+                iconEl.style.color = '#38BDF8';
+            }
+
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Close on Esc key
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeSearchModal();
+                document.getElementById('bookmarks-drawer').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

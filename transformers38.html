@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Architecture of Tomorrow — THE CHRONICLE</title>
+    <!-- Google Fonts: Playfair Display for high-end serif headlines & Inter / Newsreader for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #FAF9F5;
+            --bg-secondary: #F4F2EC;
+            --bg-card: #FFFFFF;
+            --text-primary: #111111;
+            --text-secondary: #555555;
+            --text-muted: #777777;
+            --border-color: #D1CDC2;
+            --accent-color: #8B0000; /* Deep Crimson */
+            --accent-hover: #660000;
+            --nav-bg: rgba(250, 249, 245, 0.95);
+            --ticker-bg: #111111;
+            --ticker-text: #FFFFFF;
+            --transition-speed: 0.3s;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #121212;
+            --bg-secondary: #1E1E1E;
+            --bg-card: #181818;
+            --text-primary: #F3F3F3;
+            --text-secondary: #AAAAAA;
+            --text-muted: #888888;
+            --border-color: #333333;
+            --accent-color: #D32F2F;
+            --accent-hover: #EF5350;
+            --nav-bg: rgba(18, 18, 18, 0.95);
+            --ticker-bg: #000000;
+            --ticker-text: #E0E0E0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Utility Bar */
+        .utility-bar {
+            background-color: var(--ticker-bg);
+            color: var(--ticker-text);
+            font-size: 0.75rem;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .utility-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .utility-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .utility-links button {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            font-size: inherit;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: opacity 0.2s;
+        }
+
+        .utility-links button:hover {
+            opacity: 0.8;
+        }
+
+        /* Masthead */
+        header.masthead {
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 1rem;
+            text-align: center;
+        }
+
+        .masthead-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .masthead-container {
+                grid-template-columns: 1fr 2fr 1fr;
+                text-align: left;
+            }
+        }
+
+        .masthead-brand {
+            text-align: center;
+        }
+
+        .masthead-brand h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            line-height: 1.1;
+        }
+
+        @media (min-width: 768px) {
+            .masthead-brand h1 {
+                font-size: 3.5rem;
+            }
+        }
+
+        .masthead-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        @media (min-width: 768px) {
+            .masthead-actions {
+                justify-content: flex-end;
+            }
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        .bookmark-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background-color: var(--accent-color);
+            color: white;
+            font-size: 0.6rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .bookmark-badge.hidden {
+            display: none;
+        }
+
+        /* Sticky Navigation */
+        nav.sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            padding: 0.75rem 0;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            transition: color 0.2s;
+            padding-bottom: 2px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb-bar {
+            max-width: 900px;
+            margin: 1.5rem auto 0 auto;
+            padding: 0 1rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb-bar a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Article Hero Section */
+        .article-hero {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem 1.5rem 1rem;
+            text-align: center;
+        }
+
+        .article-category-tag {
+            background-color: var(--accent-color);
+            color: #FFFFFF;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.3rem 0.6rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+            border-radius: 2px;
+        }
+
+        .article-main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.25rem;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        @media (min-width: 768px) {
+            .article-main-title {
+                font-size: 3.5rem;
+            }
+        }
+
+        .article-deck {
+            font-family: 'Newsreader', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (min-width: 768px) {
+            .article-deck {
+                font-size: 1.4rem;
+            }
+        }
+
+        .article-author-meta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-meta-details {
+            text-align: left;
+        }
+
+        .author-meta-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .author-meta-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Article Hero Image */
+        .article-featured-image-container {
+            max-width: 1100px;
+            margin: 0 auto 3rem auto;
+            padding: 0 1rem;
+        }
+
+        .article-featured-image-container img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        @media (min-width: 768px) {
+            .article-featured-image-container img {
+                height: 550px;
+            }
+        }
+
+        .image-caption {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Layout Container: Main Story + Sidebar */
+        .story-layout-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem 4rem 1rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 1024px) {
+            .story-layout-container {
+                grid-template-columns: 8fr 4fr;
+            }
+        }
+
+        /* Article Body Typography */
+        .article-body {
+            font-family: 'Newsreader', serif;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .article-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        .drop-cap::first-letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            float: left;
+            line-height: 0.8;
+            padding-right: 0.75rem;
+            padding-top: 0.1rem;
+            color: var(--accent-color);
+        }
+
+        .article-body h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 2.5rem 0 1rem 0;
+            color: var(--text-primary);
+        }
+
+        /* Pull Quote */
+        .pull-quote {
+            border-left: 4px solid var(--accent-color);
+            margin: 2.5rem 0;
+            padding: 1rem 0 1rem 2rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            line-height: 1.4;
+            color: var(--text-primary);
+            background-color: var(--bg-secondary);
+            border-radius: 0 2px 2px 0;
+        }
+
+        .pull-quote cite {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* Inline Content Image */
+        .inline-content-image {
+            margin: 2.5rem 0;
+        }
+
+        .inline-content-image img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        /* Article Actions Footer (Share / Bookmark) */
+        .article-action-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            margin: 3rem 0;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .share-btn {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .share-btn:hover {
+            background-color: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        /* Author Bio Box */
+        .author-bio-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 2px;
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .author-bio-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .author-bio-info h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-bio-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .author-bio-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Comments Section */
+        .comments-section {
+            border-top: 2px solid var(--text-primary);
+            padding-top: 2rem;
+            margin-top: 3rem;
+        }
+
+        .comments-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .comment-form {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 2px;
+            margin-bottom: 2.5rem;
+        }
+
+        .comment-form h5 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .form-row {
+            margin-bottom: 1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.75rem;
+            font-size: 0.85rem;
+            border-radius: 2px;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .comment-item {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comment-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-author {
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .comment-date {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .comment-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .sidebar-box {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 2px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .sidebar-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .editors-picks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .pick-item {
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .pick-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .pick-tag {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-color);
+        }
+
+        .pick-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 0.25rem 0;
+            line-height: 1.25;
+        }
+
+        .pick-title a:hover {
+            color: var(--accent-color);
+        }
+
+        .pick-readtime {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+            display: block;
+        }
+
+        /* Related Stories Grid Section */
+        .related-section {
+            max-width: 1200px;
+            margin: 0 auto 5rem auto;
+            padding: 0 1rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 3rem;
+        }
+
+        .related-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .related-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .related-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 2px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s;
+        }
+
+        .related-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .related-img-wrap {
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border-radius: 2px;
+        }
+
+        .related-img-wrap img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .related-card:hover .related-img-wrap img {
+            transform: scale(1.04);
+        }
+
+        .related-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .related-title a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Footer */
+        footer.main-footer {
+            background-color: var(--ticker-bg);
+            color: #999999;
+            padding: 4rem 1rem 2rem 1rem;
+            border-top: 1px solid #333333;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .footer-brand h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .footer-brand p {
+            font-size: 0.75rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .footer-col h4 {
+            color: #FFFFFF;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .footer-col ul a:hover {
+            color: #FFFFFF;
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #222222;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #666666;
+        }
+
+        /* Saved Bookmarks Drawer */
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(2px);
+            z-index: 100;
+            display: flex;
+            justify-content: flex-end;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .drawer-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .drawer-panel {
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: -10px 0 25px rgba(0,0,0,0.3);
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .drawer-overlay.active .drawer-panel {
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .drawer-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .drawer-body {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .drawer-item {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 0.85rem;
+            border-radius: 2px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .drawer-item-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding-right: 0.5rem;
+        }
+
+        .drawer-item-delete {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .drawer-item-delete:hover {
+            color: var(--accent-color);
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--ticker-bg);
+            color: #FFFFFF;
+            padding: 0.85rem 1.25rem;
+            border-radius: 2px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+            font-size: 0.75rem;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="utility-bar">
+        <div class="utility-container">
+            <span id="current-date" style="color: #AAAAAA; font-weight: 500;">Wednesday, October 7, 2026</span>
+            <div class="utility-links">
+                <button onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke" id="theme-icon"></i> <span id="theme-label">Dark Mode</span></button>
+            </div>
+        </div>
+    </div>
+
+    <header class="masthead">
+        <div class="masthead-container">
+            <div></div>
+            <div class="masthead-brand">
+                <a href="magazine.html">
+                    <h1>The Chronicle</h1>
+                </a>
+            </div>
+            <div class="masthead-actions">
+                <button class="btn-outline" onclick="toggleBookmarksDrawer()">
+                    <i class="fa-regular fa-bookmark"></i>
+                    <span>Saved</span>
+                    <span id="bookmark-badge" class="bookmark-badge hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="sticky-nav">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="magazine.html">World</a></li>
+                <li><a href="magazine.html">Politics</a></li>
+                <li><a href="magazine.html" class="active">Business & Tech</a></li>
+                <li><a href="magazine.html">Opinion</a></li>
+                <li><a href="magazine.html">Arts & Culture</a></li>
+                <li><a href="magazine.html">Climate</a></li>
+                <li><a href="magazine.html">Science</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="breadcrumb-bar">
+        <a href="magazine.html">Home</a>
+        <span>/</span>
+        <a href="magazine.html">Urban Design</a>
+        <span>/</span>
+        <span style="color: var(--text-primary);">Cover Story</span>
+    </div>
+
+    <header class="article-hero">
+        <span class="article-category-tag">Comics</span>
+        <h1 class="article-main-title">Megatron Emerges! Transformers #38 Reveals Megatron's New Form</h1>
+        <p class="article-deck">The world of Transformers has changed over the last year as Robert Kirkman and the industry's top artists introduced us to Elita Prime, Arcee Magnus, a new Superion and more. What's next?</p>
+        
+        <div class="article-author-meta">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" 
+                 onerror="this.src='https://placehold.co/150x150/444/fff?text=Author'"
+                 alt="Elena Vance" class="author-avatar">
+            <div class="author-meta-details">
+                <div class="author-meta-name">By Elena Vance</div>
+                <div class="author-meta-date">Published Oct 7, 2026 &bull; 4 min read</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="article-featured-image-container">
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1400&auto=format&fit=crop" 
+             onerror="this.src='https://placehold.co/1400x800/111/fff?text=Architecture'"
+             alt="Futuristic Skyline">
+        <div class="image-caption">
+            <span>A conceptual tower in Singapore featuring integrated vertical agricultural terraces and carbon-capture facades.</span>
+            <span>Photo: ArchDaily / Studio Tomorrow</span>
+        </div>
+    </div>
+
+    <div class="story-layout-container">
+        <!-- Main Article Content -->
+        <article class="article-body">
+            <p class="drop-cap">We have spent the past century building cities as if nature were an adversary to be conquered. Towers of impervious glass and heat-trapping asphalt have locked our metropolitan hubs into a fossil-fueled loop of mechanical cooling and sprawling inefficiency. But as global temperatures test the limits of urban resilience, a radical design philosophy is taking root across global capitals from Tokyo to São Paulo.</p>
+
+            <p>Architects are no longer asking how concrete can be poured faster or cheaper; they are asking how buildings can metabolize sunlight, capture storm runoff, and sequester atmospheric carbon in real-time. Welcome to the era of regenerative urbanism.</p>
+
+            <h2>The Rise of Living Bio-Facades</h2>
+
+            <p>In downtown Milan and Singapore, recent residential towers resemble lush vertical forests rather than monolithic high-rises. These structures utilize engineered soil beds and drought-resistant perennials capable of reducing local ambient temperatures by up to three degrees Celsius while filtering out particulate smog.</p>
+
+            <div class="inline-content-image">
+                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop" 
+                     onerror="this.src='https://placehold.co/1000x600/333/fff?text=Interior'"
+                     alt="Minimalist Interior">
+                <div class="image-caption">
+                    <span>Acoustic shielding and natural daylight wells designed to eliminate mechanical HVAC reliance.</span>
+                </div>
+            </div>
+
+            <div class="pull-quote">
+                "Our cities must cease acting as parasites on the biosphere and begin functioning as self-sustaining organs within it."
+                <cite>&mdash; Dr. Aris Thorne, Director of Ecological Urbanism</cite>
+            </div>
+
+            <p>Furthermore, material scientists are pioneering self-healing bacterial concrete infused with dormant spores that germinate upon moisture contact, sealing micro-cracks before they compromise structural integrity. This single innovation promises to slash the carbon footprint of future municipal maintenance by over forty percent.</p>
+
+            <h2>Decentralized Energy Networks</h2>
+
+            <p>Beyond aesthetics and materials, the distribution of power is undergoing a tectonic shift. Microgrids powered by transparent photovoltaic glazing and kinetic pedestrian walkways allow individual neighborhoods to operate autonomously during grid disruptions.</p>
+
+            <p>As these technologies mature, the line between architecture and ecology blurs entirely. The megacity of tomorrow is no longer a monument to industrial dominance, but a sanctuary of symbiosis.</p>
+
+            <div class="article-action-footer">
+                <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase;">Share this story</div>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="shareArticle('twitter')" title="Share on Twitter"><i class="fa-brands fa-twitter"></i></button>
+                    <button class="share-btn" onclick="shareArticle('copy')" title="Copy Link"><i class="fa-solid fa-link"></i></button>
+                    <button class="share-btn" onclick="toggleBookmark(this, 'The Architecture of Tomorrow: Reimagining Megacities for a Post-Carbon Era')" title="Save Article"><i class="fa-regular fa-bookmark"></i></button>
+                </div>
+            </div>
+
+            <div class="author-bio-card">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" 
+                     onerror="this.src='https://placehold.co/150x150/444/fff?text=Author'"
+                     alt="Elena Vance" class="author-bio-avatar">
+                <div class="author-bio-info">
+                    <h4>Elena Vance</h4>
+                    <div class="author-bio-title">Senior Architecture & Urbanism Editor</div>
+                    <p class="author-bio-desc">Elena covers sustainable design, urban ecology, and spatial philosophy across Europe and the Americas. She is the author of "Concrete and Canopy: The Greening of the Modern Metropolis."</p>
+                </div>
+            </div>
+
+            <section class="comments-section" id="comments">
+                <h3 class="comments-header">Discussion (<span id="comment-count">2</span>)</h3>
+                
+                <div class="comment-form">
+                    <h5>Join the Conversation</h5>
+                    <form onsubmit="handleCommentSubmit(event)">
+                        <div class="form-row">
+                            <input type="text" id="comment-name" required class="form-input" placeholder="Your Full Name">
+                        </div>
+                        <div class="form-row">
+                            <textarea id="comment-text" required class="form-input" placeholder="Share your perspective..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-outline" style="background-color: var(--text-primary); color: var(--bg-primary); border-color: var(--text-primary);">Post Comment</button>
+                    </form>
+                </div>
+
+                <div id="comments-list">
+                    <div class="comment-item">
+                        <div class="comment-meta">
+                            <span class="comment-author">Marcus Sterling</span>
+                            <span class="comment-date">Oct 7, 2026 at 2:15 PM</span>
+                        </div>
+                        <p class="comment-text">Fascinating read. The implementation of self-healing biopolymers cannot come soon enough for coastal municipalities facing rising salinity in groundwater.</p>
+                    </div>
+                    <div class="comment-item">
+                        <div class="comment-meta">
+                            <span class="comment-author">Dr. Beatrice Vance</span>
+                            <span class="comment-date">Oct 7, 2026 at 4:32 PM</span>
+                        </div>
+                        <p class="comment-text">A brilliant overview of what's happening in Milan. We need similar municipal building codes enacted across North American cities immediately.</p>
+                    </div>
+                </div>
+            </section>
+        </article>
+
+        <aside class="sidebar">
+            <div class="sidebar-box">
+                <div class="sidebar-header">
+                    <h3>Editor's Picks</h3>
+                    <i class="fa-solid fa-certificate" style="color: var(--accent-color);"></i>
+                </div>
+                <div class="editors-picks-list">
+                    <div class="pick-item">
+                        <span class="pick-tag">Longread</span>
+                        <h4 class="pick-title"><a href="#">The Last Cartographers of the Digital Wilderness</a></h4>
+                        <span class="pick-readtime">12 min read</span>
+                    </div>
+                    <div class="pick-item">
+                        <span class="pick-tag">Geopolitics</span>
+                        <h4 class="pick-title"><a href="#">Diplomacy in the Quantum Age</a></h4>
+                        <span class="pick-readtime">8 min read</span>
+                    </div>
+                    <div class="pick-item">
+                        <span class="pick-tag">Markets</span>
+                        <h4 class="pick-title"><a href="#">The Silent Boom of Artisan Economies</a></h4>
+                        <span class="pick-readtime">6 min read</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-box">
+                <div class="sidebar-header">
+                    <h3>Trending Topics</h3>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <a href="magazine.html" class="btn-outline" style="font-size:0.65rem; padding:0.25rem 0.5rem;">#QuantumTech</a>
+                    <a href="magazine.html" class="btn-outline" style="font-size:0.65rem; padding:0.25rem 0.5rem;">#UrbanForests</a>
+                    <a href="magazine.html" class="btn-outline" style="font-size:0.65rem; padding:0.25rem 0.5rem;">#SyntheticBiology</a>
+                    <a href="magazine.html" class="btn-outline" style="font-size:0.65rem; padding:0.25rem 0.5rem;">#DeepFocus</a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <section class="related-section">
+        <h3 class="related-header">Related Dispatches</h3>
+        <div class="related-grid">
+            <article class="related-card">
+                <div>
+                    <div class="related-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=600&auto=format&fit=crop" 
+                             onerror="this.src='https://placehold.co/600x400/222/fff?text=Ocean'"
+                             alt="Ocean">
+                    </div>
+                    <span class="pick-tag">Environment</span>
+                    <h4 class="related-title"><a href="#">Autonomous Ocean Fleets Map Deep Sea Ecosystems and Monitor Carbon Sink Health</a></h4>
+                </div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 0.5rem; margin-top: 1rem;">
+                    <span>Oct 4, 2026</span>
+                </div>
+            </article>
+
+            <article class="related-card">
+                <div>
+                    <div class="related-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?q=80&w=600&auto=format&fit=crop" 
+                             onerror="this.src='https://placehold.co/600x400/222/fff?text=Tech'"
+                             alt="Tech">
+                    </div>
+                    <span class="pick-tag">Synthetic Biology</span>
+                    <h4 class="related-title"><a href="#">Synthetic Biology and the New Frontier of Engineered Organic Materials</a></h4>
+                </div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 0.5rem; margin-top: 1rem;">
+                    <span>Oct 6, 2026</span>
+                </div>
+            </article>
+
+            <article class="related-card">
+                <div>
+                    <div class="related-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=600&auto=format&fit=crop" 
+                             onerror="this.src='https://placehold.co/600x400/222/fff?text=Culture'"
+                             alt="Culture">
+                    </div>
+                    <span class="pick-tag">Arts & Music</span>
+                    <h4 class="related-title"><a href="#">The Vinyl Renaissance: Why Gen Z is Driving Analog Physical Media to Record Heights</a></h4>
+                </div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 0.5rem; margin-top: 1rem;">
+                    <span>Oct 5, 2026</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h2>The Chronicle</h2>
+                <p>Committed to uncompromising investigative journalism, cultural critique, and global perspective since 1928.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Newsrooms</h4>
+                <ul>
+                    <li><a href="magazine.html">New York Bureau</a></li>
+                    <li><a href="magazine.html">London & European Desk</a></li>
+                    <li><a href="magazine.html">Tokyo Technology Hub</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="magazine.html">About The Chronicle</a></li>
+                    <li><a href="magazine.html">Masthead & Editors</a></li>
+                    <li><a href="magazine.html">Careers & Fellowships</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal & Privacy</h4>
+                <ul>
+                    <li><a href="magazine.html">Subscriber Agreement</a></li>
+                    <li><a href="magazine.html">Privacy Policy</a></li>
+                    <li><a href="magazine.html">Code of Ethics</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 The Chronicle Publishing Co. All rights reserved.
+        </div>
+    </footer>
+
+    <div class="drawer-overlay" id="bookmarks-drawer">
+        <div class="drawer-panel">
+            <div>
+                <div class="drawer-header">
+                    <h3>Saved Articles (<span id="drawer-count">0</span>)</h3>
+                    <button class="modal-close" onclick="toggleBookmarksDrawer()" style="background:none; border:none; font-size:1.25rem; cursor:pointer; color:var(--text-primary);"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="drawer-body" id="drawer-list">
+                    <div style="color:var(--text-muted); font-size:0.8rem; font-style:italic;">No saved articles yet.</div>
+                </div>
+            </div>
+            <div style="padding-top:1rem; border-top:1px solid var(--border-color);">
+                <button class="btn-outline" style="width:100%; justify-content:center;" onclick="clearBookmarks()">Clear All Saved</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check" style="color: #4ADE80;" id="toast-icon"></i>
+        <span id="toast-msg">Action completed successfully.</span>
+    </div>
+
+    <script>
+        // Set live current date
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', options);
+
+        // Bookmarks State Management
+        let bookmarks = JSON.parse(localStorage.getItem('chronicle_bookmarks')) || [];
+        updateBookmarkUI();
+
+        function toggleBookmark(btn, title) {
+            const icon = btn.querySelector('i');
+            const index = bookmarks.indexOf(title);
+
+            if (index > -1) {
+                bookmarks.splice(index, 1);
+                icon.classList.remove('fa-solid');
+                icon.classList.add('fa-regular');
+                icon.style.color = '';
+                showToast('Removed from saved articles', 'info');
+            } else {
+                bookmarks.push(title);
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid');
+                icon.style.color = 'var(--accent-color)';
+                showToast('Article saved to your reading list', 'success');
+            }
+            localStorage.setItem('chronicle_bookmarks', JSON.stringify(bookmarks));
+            updateBookmarkUI();
+        }
+
+        function updateBookmarkUI() {
+            const badge = document.getElementById('bookmark-badge');
+            const countEl = document.getElementById('drawer-count');
+            const listEl = document.getElementById('drawer-list');
+
+            if (bookmarks.length > 0) {
+                badge.textContent = bookmarks.length;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+            if(countEl) countEl.textContent = bookmarks.length;
+
+            if (listEl) {
+                if (bookmarks.length === 0) {
+                    listEl.innerHTML = `<div style="color:var(--text-muted); font-size:0.8rem; font-style:italic;">No saved articles yet.</div>`;
+                } else {
+                    listEl.innerHTML = bookmarks.map((b, i) => `
+                        <div class="drawer-item">
+                            <span class="drawer-item-title">${b}</span>
+                            <button class="drawer-item-delete" onclick="removeBookmarkByIndex(${i})"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        function removeBookmarkByIndex(index) {
+            bookmarks.splice(index, 1);
+            localStorage.setItem('chronicle_bookmarks', JSON.stringify(bookmarks));
+            updateBookmarkUI();
+            showToast('Removed from saved articles', 'info');
+        }
+
+        function clearBookmarks() {
+            bookmarks = [];
+            localStorage.setItem('chronicle_bookmarks', JSON.stringify(bookmarks));
+            updateBookmarkUI();
+            showToast('All saved articles cleared', 'info');
+        }
+
+        function toggleBookmarksDrawer() {
+            const drawer = document.getElementById('bookmarks-drawer');
+            drawer.classList.toggle('active');
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('chronicle_theme', newTheme);
+            
+            const label = document.getElementById('theme-label');
+            if (newTheme === 'dark') {
+                label.textContent = 'Light Mode';
+            } else {
+                label.textContent = 'Dark Mode';
+            }
+        }
+
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('chronicle_theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'dark') {
+            document.getElementById('theme-label').textContent = 'Light Mode';
+        }
+
+        // Share functionality
+        function shareArticle(platform) {
+            if (platform === 'copy') {
+                const dummy = document.createElement('input');
+                document.body.appendChild(dummy);
+                dummy.value = window.location.href;
+                document.execCommand('copy');
+                document.body.removeChild(dummy);
+                showToast('Article link copied to clipboard!', 'success');
+            } else {
+                showToast('Sharing interface opened', 'info');
+            }
+        }
+
+        // Interactive Comment Submission
+        function handleCommentSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('comment-name').value.trim();
+            const text = document.getElementById('comment-text').value.trim();
+            
+            if(!name || !text) return;
+
+            const list = document.getElementById('comments-list');
+            const newComment = document.createElement('div');
+            newComment.className = 'comment-item';
+            newComment.innerHTML = `
+                <div class="comment-meta">
+                    <span class="comment-author">${escapeHTML(name)}</span>
+                    <span class="comment-date">Just now</span>
+                </div>
+                <p class="comment-text">${escapeHTML(text)}</p>
+            `;
+            list.prepend(newComment);
+
+            const countEl = document.getElementById('comment-count');
+            countEl.textContent = parseInt(countEl.textContent) + 1;
+
+            e.target.reset();
+            showToast('Comment posted successfully!', 'success');
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+
+        // Toast Helper
+        function showToast(msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-msg');
+            const iconEl = document.getElementById('toast-icon');
+
+            msgEl.textContent = msg;
+            if (type === 'success') {
+                iconEl.className = 'fa-solid fa-circle-check';
+                iconEl.style.color = '#4ADE80';
+            } else {
+                iconEl.className = 'fa-solid fa-circle-info';
+                iconEl.style.color = '#38BDF8';
+            }
+
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('bookmarks-drawer').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
